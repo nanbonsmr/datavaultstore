@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { ShoppingCart, Menu, Search, Zap } from "lucide-react";
+import { Search, Menu, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { CartDrawer } from "@/components/CartDrawer";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -38,14 +39,7 @@ const Header = () => (
         <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
           <Search className="h-5 w-5" />
         </Button>
-        <Link to="/shop">
-          <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground relative">
-            <ShoppingCart className="h-5 w-5" />
-            <span className="absolute -top-0.5 -right-0.5 h-4 w-4 rounded-full bg-primary text-[10px] font-bold text-primary-foreground flex items-center justify-center">
-              0
-            </span>
-          </Button>
-        </Link>
+        <CartDrawer />
 
         <Sheet>
           <SheetTrigger asChild className="md:hidden">
