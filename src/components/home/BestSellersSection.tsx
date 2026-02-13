@@ -13,7 +13,7 @@ const BestSellersSection = () => {
         <div className="flex items-end justify-between mb-12">
           <div>
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">Best Sellers</h2>
-            <p className="mt-3 text-muted-foreground">Our most popular storage products</p>
+            <p className="mt-3 text-muted-foreground">Our most popular USB storage & equipment</p>
           </div>
           <Link
             to="/shop"

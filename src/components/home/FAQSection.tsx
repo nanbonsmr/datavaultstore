@@ -2,10 +2,10 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 
 const faqs = [
   { q: "How fast is your shipping?", a: "We ship worldwide with standard delivery in 5-14 business days. Express shipping options are available at checkout. All orders include tracking information." },
-  { q: "Are your products compatible with Mac and PC?", a: "Yes! All our storage products are compatible with Windows, macOS, Linux, and most devices with USB ports. Some products also support Android via USB-C or OTG adapters." },
+  { q: "Are your products compatible with Mac and PC?", a: "Yes! All our USB equipment — drives, hubs, cables, and adapters — are compatible with Windows, macOS, Linux, and most devices with USB ports. Many also support Android via USB-C or OTG." },
   { q: "What warranty do you offer?", a: "All products come with a minimum 1-year manufacturer warranty. Premium products include up to 5-year warranty. We also offer a 30-day money-back guarantee." },
   { q: "Do you offer bulk or wholesale pricing?", a: "Yes, we offer special pricing for bulk orders of 50+ units. Contact us at support@datavault.store for a custom quote tailored to your needs." },
-  { q: "How do I choose the right storage capacity?", a: "It depends on your use case: 32-64GB for documents and light use, 128-256GB for photos and apps, 512GB-1TB for video and gaming, and 2TB+ for professional content creation and backups." },
+  { q: "What types of USB equipment do you sell?", a: "We carry a full range: flash drives, external HDDs & SSDs, USB hubs & docking stations, cables & adapters (USB-C, Lightning, Micro-USB), card readers, chargers, and other USB peripherals." },
   { q: "What payment methods do you accept?", a: "We accept all major credit/debit cards (Visa, Mastercard, Amex), PayPal, Apple Pay, and Google Pay. All transactions are secured with 256-bit SSL encryption." },
 ];
 
