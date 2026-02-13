@@ -5,6 +5,7 @@ import {
   Package, Check, Zap, CreditCard, ChevronLeft
 } from "lucide-react";
 import RelatedProducts from "@/components/RelatedProducts";
+import ProductReviews from "@/components/ProductReviews";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { useShopifyProduct } from "@/hooks/useShopifyProducts";
@@ -359,6 +360,9 @@ const ProductDetail = () => {
             </div>
           </div>
         )}
+
+        {/* Reviews */}
+        <ProductReviews />
 
         {/* Related Products */}
         <RelatedProducts
