@@ -117,7 +117,7 @@ const ProductDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="container mx-auto px-4 py-6 md:py-10">
+      <main className="container mx-auto px-4 py-6 md:py-10 pb-mobile-bar md:pb-10">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
           <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
@@ -149,13 +149,13 @@ const ProductDetail = () => {
                 <>
                   <button
                     onClick={() => navigateImage(-1)}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center text-foreground opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
+                    className="absolute left-2 top-1/2 -translate-y-1/2 h-9 w-9 md:h-10 md:w-10 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center text-foreground opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
                   >
                     <ChevronLeft className="h-5 w-5" />
                   </button>
                   <button
                     onClick={() => navigateImage(1)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center text-foreground opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 h-9 w-9 md:h-10 md:w-10 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center text-foreground opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
                   >
                     <ChevronRight className="h-5 w-5" />
                   </button>
@@ -270,8 +270,8 @@ const ProductDetail = () => {
 
               <Separator className="bg-border/50" />
 
-              {/* Quantity + Add to Cart */}
-              <div className="space-y-3">
+              {/* Quantity + Add to Cart (hidden on mobile, shown in sticky bar) */}
+              <div className="hidden md:block space-y-3">
                 <div className="flex items-center gap-3">
                   <div className="flex items-center border border-border rounded-xl bg-card overflow-hidden">
                     <button
@@ -369,6 +369,45 @@ const ProductDetail = () => {
           currentProductType={product.options.find(o => o.name !== "Title")?.name}
         />
       </main>
+
+      {/* Sticky Mobile Bottom Bar */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-background/95 backdrop-blur-lg border-t border-border px-4 py-3 safe-bottom">
+        <div className="flex items-center gap-2">
+          <div className="flex items-center border border-border rounded-lg bg-card overflow-hidden flex-shrink-0">
+            <button
+              onClick={() => setQty(Math.max(1, qty - 1))}
+              className="px-3 py-2.5 text-muted-foreground hover:text-foreground transition-colors font-medium text-sm"
+            >
+              −
+            </button>
+            <span className="px-3 py-2.5 text-sm font-semibold text-foreground border-x border-border">
+              {qty}
+            </span>
+            <button
+              onClick={() => setQty(qty + 1)}
+              className="px-3 py-2.5 text-muted-foreground hover:text-foreground transition-colors font-medium text-sm"
+            >
+              +
+            </button>
+          </div>
+          <Button
+            className="btn-gradient flex-1 gap-1.5 h-11 text-sm rounded-lg"
+            onClick={handleAddToCart}
+            disabled={cartLoading || !selectedVariant.availableForSale}
+          >
+            {cartLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShoppingCart className="h-4 w-4" />}
+            Add to Cart
+          </Button>
+          <Button
+            className="h-11 px-4 rounded-lg bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-sm"
+            onClick={handleBuyNow}
+            disabled={cartLoading || !selectedVariant.availableForSale}
+          >
+            {cartLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <CreditCard className="h-4 w-4" />}
+          </Button>
+        </div>
+      </div>
+
       <Footer />
     </div>
   );
