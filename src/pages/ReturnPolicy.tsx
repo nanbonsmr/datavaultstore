@@ -65,7 +65,7 @@ const ReturnPolicy = () => (
             <h2 className="text-lg font-heading font-semibold text-foreground">How to Initiate a Return</h2>
           </div>
           <ol className="list-decimal pl-5 space-y-2">
-            <li>Email us at <a href="mailto:support@datavault.store" className="text-primary hover:underline">support@datavault.store</a> with your order number and reason for return.</li>
+            <li>Email us at <a href="mailto:nanbonkayu@gmail.com" className="text-primary hover:underline">nanbonkayu@gmail.com</a> with your order number and reason for return.</li>
             <li>Our team will review your request and respond within <strong className="text-foreground">1–2 business days</strong> with a Return Merchandise Authorization (RMA) number and return shipping instructions.</li>
             <li>Pack the item securely in its original packaging and include the RMA number on the outside of the box.</li>
             <li>Ship the item to the address provided. We recommend using a trackable shipping method.</li>
@@ -119,7 +119,7 @@ const ReturnPolicy = () => (
           </div>
           <p>
             For any return or refund questions, <Link to="/contact" className="text-primary hover:underline">contact our support team</Link> or email{" "}
-            <a href="mailto:support@datavault.store" className="text-primary hover:underline">support@datavault.store</a>. We're here to help!
+            <a href="mailto:nanbonkayu@gmail.com" className="text-primary hover:underline">nanbonkayu@gmail.com</a>. We're here to help!
           </p>
         </section>
       </div>

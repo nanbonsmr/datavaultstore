@@ -45,8 +45,8 @@ const Footer = () => (
         <div>
           <h4 className="font-heading font-semibold text-foreground mb-4">Contact</h4>
           <ul className="space-y-3 text-sm text-muted-foreground">
-            <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-primary" /> support@datavault.store</li>
-            <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-primary" /> +1 (800) 555-0199</li>
+            <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-primary" /> nanbonkayu@gmail.com</li>
+            <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-primary" /> +251976892311</li>
             <li className="flex items-center gap-2"><MapPin className="h-4 w-4 text-primary" /> Worldwide Shipping</li>
           </ul>
         </div>

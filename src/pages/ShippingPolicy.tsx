@@ -108,7 +108,7 @@ const ShippingPolicy = () => (
           </div>
           <ul className="list-disc pl-5 space-y-2">
             <li><strong className="text-foreground">Lost packages:</strong> If your tracking shows "delivered" but you haven't received the package, please contact us within 7 days. We will work with the carrier to resolve the issue or send a replacement.</li>
-            <li><strong className="text-foreground">Damaged packages:</strong> If your order arrives damaged, take photos and contact us within 48 hours at <a href="mailto:support@datavault.store" className="text-primary hover:underline">support@datavault.store</a>.</li>
+            <li><strong className="text-foreground">Damaged packages:</strong> If your order arrives damaged, take photos and contact us within 48 hours at <a href="mailto:nanbonkayu@gmail.com" className="text-primary hover:underline">nanbonkayu@gmail.com</a>.</li>
             <li><strong className="text-foreground">Incorrect address:</strong> DataVault is not responsible for packages sent to incorrect addresses provided by the customer. Re-shipping fees may apply.</li>
             <li><strong className="text-foreground">P.O. Boxes:</strong> We ship to P.O. Boxes via USPS Standard only.</li>
           </ul>
@@ -122,7 +122,7 @@ const ShippingPolicy = () => (
           </div>
           <p>
             If you have any questions about shipping, feel free to <Link to="/contact" className="text-primary hover:underline">contact our support team</Link> or email us at{" "}
-            <a href="mailto:support@datavault.store" className="text-primary hover:underline">support@datavault.store</a>.
+            <a href="mailto:nanbonkayu@gmail.com" className="text-primary hover:underline">nanbonkayu@gmail.com</a>.
           </p>
         </section>
       </div>

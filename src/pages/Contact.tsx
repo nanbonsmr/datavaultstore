@@ -27,8 +27,8 @@ const Contact = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
             {[
-              { icon: Mail, label: "Email", value: "support@datavault.store" },
-              { icon: Phone, label: "Phone", value: "+1 (800) 555-0199" },
+              { icon: Mail, label: "Email", value: "nanbonkayu@gmail.com" },
+              { icon: Phone, label: "Phone", value: "+251976892311" },
               { icon: MapPin, label: "Shipping", value: "Worldwide Delivery" },
             ].map((item) => (
               <div key={item.label} className="flex flex-col items-center gap-2 rounded-lg border border-border bg-card p-6 text-center">

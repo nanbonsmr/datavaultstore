@@ -100,7 +100,7 @@ const OrderTracking = () => {
               {[
                 { q: "My tracking number isn't working.", a: "Tracking info can take up to 24 hours to activate after you receive the shipping confirmation email. If it still isn't working after 48 hours, please contact us." },
                 { q: "My order shows 'delivered' but I haven't received it.", a: "Sometimes carriers mark a package as delivered slightly before drop-off. Wait 24 hours, check around your delivery area, and then contact us if it's still missing." },
-                { q: "Can I change my shipping address after ordering?", a: "We can update the address if the order hasn't been shipped yet. Contact us as soon as possible at support@datavault.store." },
+                { q: "Can I change my shipping address after ordering?", a: "We can update the address if the order hasn't been shipped yet. Contact us as soon as possible at nanbonkayu@gmail.com." },
                 { q: "How long does shipping take?", a: "Domestic standard shipping takes 5–7 business days. International shipping varies by region (7–21 business days). See our Shipping Policy for full details." },
               ].map(({ q, a }) => (
                 <div key={q} className="rounded-lg border border-border bg-card p-4">

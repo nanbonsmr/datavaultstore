@@ -118,7 +118,7 @@ const PrivacyPolicy = () => (
             <li><strong className="text-foreground">Opt-out:</strong> Unsubscribe from marketing communications at any time.</li>
             <li><strong className="text-foreground">Data portability:</strong> Receive your data in a structured, machine-readable format.</li>
           </ul>
-          <p className="mt-3">To exercise any of these rights, email us at <a href="mailto:support@datavault.store" className="text-primary hover:underline">support@datavault.store</a>. We respond to all requests within 30 days.</p>
+          <p className="mt-3">To exercise any of these rights, email us at <a href="mailto:nanbonkayu@gmail.com" className="text-primary hover:underline">nanbonkayu@gmail.com</a>. We respond to all requests within 30 days.</p>
         </section>
 
         {/* Children */}
@@ -141,7 +141,7 @@ const PrivacyPolicy = () => (
           </div>
           <p>
             If you have any questions about this Privacy Policy, please <Link to="/contact" className="text-primary hover:underline">contact us</Link> or email{" "}
-            <a href="mailto:support@datavault.store" className="text-primary hover:underline">support@datavault.store</a>.
+            <a href="mailto:nanbonkayu@gmail.com" className="text-primary hover:underline">nanbonkayu@gmail.com</a>.
           </p>
         </section>
       </div>
