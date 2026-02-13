@@ -1,5 +1,6 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SEOHead from "@/components/SEOHead";
 import HeroSection from "@/components/home/HeroSection";
 import CategoriesSection from "@/components/home/CategoriesSection";
 import BestSellersSection from "@/components/home/BestSellersSection";
@@ -10,6 +11,7 @@ import NewsletterSection from "@/components/home/NewsletterSection";
 
 const Index = () => (
   <div className="min-h-screen bg-background">
+    <SEOHead />
     <Header />
     <main>
       <HeroSection />

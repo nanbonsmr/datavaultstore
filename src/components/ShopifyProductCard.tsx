@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
-import { ShoppingCart, Loader2, Eye } from "lucide-react";
+import { ShoppingCart, Loader2, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { type ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
+import { useWishlistStore } from "@/stores/wishlistStore";
 import { toast } from "sonner";
 
 const ShopifyProductCard = ({ product }: { product: ShopifyProduct }) => {
   const addItem = useCartStore(state => state.addItem);
   const isLoading = useCartStore(state => state.isLoading);
+  const toggleWishlist = useWishlistStore(state => state.toggle);
+  const isWishlisted = useWishlistStore(state => state.has(product.node.handle));
   const { node } = product;
   const price = node.priceRange.minVariantPrice;
   const image = node.images.edges[0]?.node;
@@ -74,9 +77,15 @@ const ShopifyProductCard = ({ product }: { product: ShopifyProduct }) => {
             <Button
               size="sm"
               variant="secondary"
-              className="h-9 w-9 p-0"
+              className={`h-9 w-9 p-0 ${isWishlisted ? 'text-red-500 bg-red-500/10 border-red-500/30' : ''}`}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleWishlist(node.handle);
+                toast.success(isWishlisted ? 'Removed from wishlist' : 'Added to wishlist');
+              }}
             >
-              <Eye className="h-3.5 w-3.5" />
+              <Heart className={`h-3.5 w-3.5 ${isWishlisted ? 'fill-current' : ''}`} />
             </Button>
           </div>
 

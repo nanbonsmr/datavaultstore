@@ -5,6 +5,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useCartSync } from "@/hooks/useCartSync";
+import CookieConsent from "@/components/CookieConsent";
+import BackToTop from "@/components/BackToTop";
 import Index from "./pages/Index";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
@@ -43,6 +45,8 @@ const AppInner = () => {
         <Route path="/order-tracking" element={<OrderTracking />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <CookieConsent />
+      <BackToTop />
     </>
   );
 };
