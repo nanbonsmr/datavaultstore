@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import {
   ShoppingCart, Truck, Shield, Clock, ChevronRight, Loader2,
-  Package, Check, Zap, CreditCard, ChevronLeft
+  Package, Check, Zap, CreditCard, ChevronLeft, Heart
 } from "lucide-react";
 import RelatedProducts from "@/components/RelatedProducts";
-import ProductReviews from "@/components/ProductReviews";
+import RecentlyViewed from "@/components/RecentlyViewed";
+import SEOHead from "@/components/SEOHead";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { useShopifyProduct } from "@/hooks/useShopifyProducts";
 import { useCartStore } from "@/stores/cartStore";
+import { useWishlistStore } from "@/stores/wishlistStore";
+import { useRecentlyViewedStore } from "@/stores/recentlyViewedStore";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -24,6 +27,25 @@ const ProductDetail = () => {
   const [qty, setQty] = useState(1);
   const addItem = useCartStore(state => state.addItem);
   const cartLoading = useCartStore(state => state.isLoading);
+  const toggleWishlist = useWishlistStore(state => state.toggle);
+  const isWishlisted = useWishlistStore(state => state.has(handle || ""));
+  const addRecentlyViewed = useRecentlyViewedStore(state => state.add);
+
+  // Track recently viewed
+  useEffect(() => {
+    if (product) {
+      const img = product.images.edges[0]?.node;
+      const variant = product.variants.edges[0]?.node;
+      addRecentlyViewed({
+        handle: product.handle,
+        title: product.title,
+        imageUrl: img?.url || "",
+        price: variant?.price.amount || "0",
+        currencyCode: variant?.price.currencyCode || "USD",
+      });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product?.handle]);
 
   if (isLoading) {
     return (
@@ -114,8 +136,14 @@ const ProductDetail = () => {
     });
   };
 
-  return (
+    return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title={product.title}
+        description={shortDescription || product.description}
+        image={images[0]?.url}
+        type="product"
+      />
       <Header />
       <main className="container mx-auto px-4 py-6 md:py-10 pb-mobile-bar md:pb-10">
         {/* Breadcrumb */}
@@ -200,11 +228,27 @@ const ProductDetail = () => {
           {/* ─── Product Info (Sticky) ─── */}
           <div className="lg:col-span-5">
             <div className="lg:sticky lg:top-24 space-y-6">
-              {/* Title + Price */}
+              {/* Title + Price + Wishlist */}
               <div>
-                <h1 className="text-xl md:text-2xl lg:text-3xl font-heading font-bold text-foreground leading-tight">
-                  {product.title}
-                </h1>
+                <div className="flex items-start justify-between gap-3">
+                  <h1 className="text-xl md:text-2xl lg:text-3xl font-heading font-bold text-foreground leading-tight">
+                    {product.title}
+                  </h1>
+                  <button
+                    onClick={() => {
+                      toggleWishlist(product.handle);
+                      toast.success(isWishlisted ? 'Removed from wishlist' : 'Added to wishlist');
+                    }}
+                    className={`flex-shrink-0 h-10 w-10 rounded-full border flex items-center justify-center transition-all ${
+                      isWishlisted
+                        ? 'border-red-500/30 bg-red-500/10 text-red-500'
+                        : 'border-border bg-card text-muted-foreground hover:text-red-500 hover:border-red-500/30'
+                    }`}
+                    aria-label="Toggle wishlist"
+                  >
+                    <Heart className={`h-5 w-5 ${isWishlisted ? 'fill-current' : ''}`} />
+                  </button>
+                </div>
                 <div className="flex items-center gap-3 mt-4">
                   <span className="text-4xl font-heading font-bold gradient-text">
                     ${parseFloat(selectedVariant.price.amount).toFixed(2)}
@@ -363,6 +407,10 @@ const ProductDetail = () => {
 
         {/* Reviews - hidden for now */}
         {/* <ProductReviews /> */}
+
+        {/* Recently Viewed */}
+        <RecentlyViewed currentHandle={product.handle} />
+
         {/* Related Products */}
         <RelatedProducts
           currentHandle={product.handle}
