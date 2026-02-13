@@ -18,12 +18,12 @@ const HeroSection = () => (
         </div>
 
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-foreground leading-[1.1] tracking-tight">
-          Fast & Reliable{" "}
-          <span className="gradient-text">Storage Solutions</span>
+          Premium USB{" "}
+          <span className="gradient-text">Storage & Equipment</span>
         </h1>
 
         <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed">
-          High-speed USB, SSD, and external drives for all your data needs. Trusted by professionals worldwide.
+          High-speed drives, USB hubs, cables, adapters & accessories — everything you need for seamless connectivity.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 mt-8">

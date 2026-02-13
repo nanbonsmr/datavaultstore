@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import { Usb, HardDrive, Cpu, Layers, Settings2 } from "lucide-react";
+import { Usb, HardDrive, Cpu, Layers, Cable, Monitor, Headphones } from "lucide-react";
 
 const cats = [
   { name: "USB Drives", icon: Usb, desc: "Flash drives & thumb drives" },
-  { name: "External HDDs", icon: HardDrive, desc: "Portable hard drives" },
-  { name: "SSD", icon: Cpu, desc: "Solid state drives" },
-  { name: "Memory Cards", icon: Layers, desc: "SD & MicroSD cards" },
-  { name: "Accessories", icon: Settings2, desc: "Hubs, readers & cables" },
+  { name: "External Storage", icon: HardDrive, desc: "HDDs, SSDs & portable drives" },
+  { name: "USB Hubs & Docks", icon: Monitor, desc: "Multi-port hubs & docking stations" },
+  { name: "Cables & Adapters", icon: Cable, desc: "USB-C, Lightning & more" },
+  { name: "USB Accessories", icon: Headphones, desc: "Chargers, readers & peripherals" },
 ];
 
 const CategoriesSection = () => (
