@@ -1,21 +1,41 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Star, ShoppingCart, Truck, Shield, Clock, ChevronRight, HardDrive, ArrowLeft } from "lucide-react";
+import { ShoppingCart, Truck, Shield, Clock, ChevronRight, Loader2 } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import ProductCard from "@/components/ProductCard";
-import { products, getCategoryColors } from "@/data/products";
+import { useShopifyProduct } from "@/hooks/useShopifyProducts";
+import { useCartStore } from "@/stores/cartStore";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useToast } from "@/hooks/use-toast";
+import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "sonner";
 
 const ProductDetail = () => {
-  const { id } = useParams();
-  const product = products.find((p) => p.id === id);
-  const [selectedCapacity, setSelectedCapacity] = useState(0);
+  const { id: handle } = useParams();
+  const { data: product, isLoading } = useShopifyProduct(handle || "");
+  const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
   const [qty, setQty] = useState(1);
-  const { toast } = useToast();
+  const addItem = useCartStore(state => state.addItem);
+  const cartLoading = useCartStore(state => state.isLoading);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <main className="container mx-auto px-4 py-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <Skeleton className="aspect-square rounded-2xl" />
+            <div className="space-y-4">
+              <Skeleton className="h-8 w-3/4" />
+              <Skeleton className="h-6 w-1/4" />
+              <Skeleton className="h-20 w-full" />
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -30,8 +50,37 @@ const ProductDetail = () => {
     );
   }
 
-  const [c1, c2] = getCategoryColors(product.category);
-  const related = products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4);
+  const variants = product.variants.edges.map(e => e.node);
+  const selectedVariant = variants[selectedVariantIdx] || variants[0];
+  const image = product.images.edges[0]?.node;
+  const hasOptions = product.options.length > 0 && product.options[0].name !== "Title";
+
+  const handleAddToCart = async () => {
+    if (!selectedVariant) return;
+    await addItem({
+      product: { node: product },
+      variantId: selectedVariant.id,
+      variantTitle: selectedVariant.title,
+      price: selectedVariant.price,
+      quantity: qty,
+      selectedOptions: selectedVariant.selectedOptions || [],
+    });
+    toast.success(`${product.title} added to cart`);
+  };
+
+  const handleBuyNow = async () => {
+    if (!selectedVariant) return;
+    await addItem({
+      product: { node: product },
+      variantId: selectedVariant.id,
+      variantTitle: selectedVariant.title,
+      price: selectedVariant.price,
+      quantity: qty,
+      selectedOptions: selectedVariant.selectedOptions || [],
+    });
+    const checkoutUrl = useCartStore.getState().getCheckoutUrl();
+    if (checkoutUrl) window.open(checkoutUrl, '_blank');
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -43,70 +92,63 @@ const ProductDetail = () => {
           <ChevronRight className="h-3 w-3" />
           <Link to="/shop" className="hover:text-foreground">Shop</Link>
           <ChevronRight className="h-3 w-3" />
-          <Link to={`/shop?category=${encodeURIComponent(product.category)}`} className="hover:text-foreground">{product.category}</Link>
-          <ChevronRight className="h-3 w-3" />
-          <span className="text-foreground">{product.name}</span>
+          <span className="text-foreground">{product.title}</span>
         </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Image */}
-          <div
-            className="aspect-square rounded-2xl border border-border flex items-center justify-center relative"
-            style={{ background: `linear-gradient(135deg, ${c1}10, ${c2}10)` }}
-          >
-            <HardDrive className="h-32 w-32 text-muted-foreground/30" />
-            {product.badge && (
-              <Badge className="absolute top-4 left-4 bg-primary text-primary-foreground">{product.badge}</Badge>
+          <div className="aspect-square rounded-2xl border border-border overflow-hidden bg-secondary/10 flex items-center justify-center">
+            {image ? (
+              <img src={image.url} alt={image.altText || product.title} className="w-full h-full object-cover" />
+            ) : (
+              <ShoppingCart className="h-32 w-32 text-muted-foreground/20" />
             )}
           </div>
 
           {/* Product Info */}
           <div>
-            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">{product.category}</p>
-            <h1 className="text-2xl md:text-3xl font-heading font-bold text-foreground">{product.name}</h1>
-
-            <div className="flex items-center gap-2 mt-3">
-              <div className="flex items-center gap-0.5">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className={`h-4 w-4 ${i < Math.floor(product.rating) ? "fill-primary text-primary" : "text-muted"}`} />
-                ))}
-              </div>
-              <span className="text-sm text-muted-foreground">{product.rating} ({product.reviews.toLocaleString()} reviews)</span>
-            </div>
+            <h1 className="text-2xl md:text-3xl font-heading font-bold text-foreground">{product.title}</h1>
 
             <div className="flex items-baseline gap-3 mt-6">
-              <span className="text-3xl font-heading font-bold text-foreground">${product.price}</span>
-              {product.originalPrice && (
-                <>
-                  <span className="text-lg text-muted-foreground line-through">${product.originalPrice}</span>
-                  <Badge variant="secondary" className="text-accent">
-                    Save ${(product.originalPrice - product.price).toFixed(2)}
-                  </Badge>
-                </>
+              <span className="text-3xl font-heading font-bold text-foreground">
+                ${parseFloat(selectedVariant.price.amount).toFixed(2)}
+              </span>
+              {!selectedVariant.availableForSale && (
+                <Badge variant="secondary">Out of Stock</Badge>
               )}
             </div>
 
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed">{product.description}</p>
 
-            {/* Capacity Selector */}
-            {product.capacities.length > 0 && (
-              <div className="mt-6">
-                <p className="text-sm font-heading font-semibold text-foreground mb-3">Storage Capacity</p>
-                <div className="flex flex-wrap gap-2">
-                  {product.capacities.map((cap, i) => (
-                    <button
-                      key={cap}
-                      onClick={() => setSelectedCapacity(i)}
-                      className={`px-4 py-2 rounded-lg text-sm border transition-colors ${
-                        selectedCapacity === i
-                          ? "border-primary bg-primary/10 text-primary font-medium"
-                          : "border-border bg-secondary text-secondary-foreground hover:border-primary/50"
-                      }`}
-                    >
-                      {cap}
-                    </button>
-                  ))}
-                </div>
+            {/* Variant Selector */}
+            {hasOptions && (
+              <div className="mt-6 space-y-4">
+                {product.options.map((option) => (
+                  <div key={option.name}>
+                    <p className="text-sm font-heading font-semibold text-foreground mb-3">{option.name}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {variants.map((v, i) => {
+                        const optVal = v.selectedOptions.find(o => o.name === option.name)?.value;
+                        // Deduplicate — only show first variant per option value
+                        const firstIdx = variants.findIndex(vv => vv.selectedOptions.find(o => o.name === option.name)?.value === optVal);
+                        if (firstIdx !== i) return null;
+                        return (
+                          <button
+                            key={v.id}
+                            onClick={() => setSelectedVariantIdx(i)}
+                            className={`px-4 py-2 rounded-lg text-sm border transition-colors ${
+                              selectedVariantIdx === i
+                                ? "border-primary bg-primary/10 text-primary font-medium"
+                                : "border-border bg-secondary text-secondary-foreground hover:border-primary/50"
+                            }`}
+                          >
+                            {optVal}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
 
@@ -119,25 +161,28 @@ const ProductDetail = () => {
               </div>
               <Button
                 className="btn-gradient flex-1 gap-2 h-11"
-                onClick={() => toast({ title: "Added to cart!", description: `${product.name} × ${qty}` })}
+                onClick={handleAddToCart}
+                disabled={cartLoading || !selectedVariant.availableForSale}
               >
-                <ShoppingCart className="h-4 w-4" /> Add to Cart
+                {cartLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShoppingCart className="h-4 w-4" />}
+                Add to Cart
               </Button>
             </div>
 
             <Button
               variant="outline"
               className="w-full mt-3 h-11"
-              onClick={() => toast({ title: "Buy Now", description: "Checkout coming with Shopify integration." })}
+              onClick={handleBuyNow}
+              disabled={cartLoading || !selectedVariant.availableForSale}
             >
-              Buy Now
+              {cartLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Buy Now"}
             </Button>
 
             {/* Trust Badges */}
             <div className="grid grid-cols-3 gap-3 mt-8">
               <div className="flex flex-col items-center gap-1 rounded-lg bg-card border border-border p-3">
                 <Truck className="h-5 w-5 text-primary" />
-                <span className="text-[11px] text-muted-foreground text-center">{product.shippingDays} days shipping</span>
+                <span className="text-[11px] text-muted-foreground text-center">Fast Shipping</span>
               </div>
               <div className="flex flex-col items-center gap-1 rounded-lg bg-card border border-border p-3">
                 <Shield className="h-5 w-5 text-primary" />
@@ -150,45 +195,6 @@ const ProductDetail = () => {
             </div>
           </div>
         </div>
-
-        {/* Tabs */}
-        <Tabs defaultValue="specs" className="mt-16">
-          <TabsList className="bg-card border border-border">
-            <TabsTrigger value="specs">Specifications</TabsTrigger>
-            <TabsTrigger value="usecases">Use Cases</TabsTrigger>
-          </TabsList>
-          <TabsContent value="specs" className="mt-6">
-            <div className="rounded-lg border border-border bg-card overflow-hidden">
-              {Object.entries(product.specs).map(([key, val], i) => (
-                <div key={key} className={`flex justify-between px-6 py-3 text-sm ${i % 2 === 0 ? "bg-card" : "bg-secondary/30"}`}>
-                  <span className="text-muted-foreground">{key}</span>
-                  <span className="text-foreground font-medium">{val}</span>
-                </div>
-              ))}
-            </div>
-          </TabsContent>
-          <TabsContent value="usecases" className="mt-6">
-            <div className="flex flex-wrap gap-3">
-              {product.useCases.map((uc) => (
-                <div key={uc} className="rounded-lg border border-border bg-card px-6 py-4">
-                  <span className="text-sm text-foreground font-medium">{uc}</span>
-                </div>
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
-
-        {/* Related Products */}
-        {related.length > 0 && (
-          <section className="mt-16">
-            <h2 className="text-2xl font-heading font-bold text-foreground mb-8">You May Also Like</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {related.map((p) => (
-                <ProductCard key={p.id} product={p} />
-              ))}
-            </div>
-          </section>
-        )}
       </main>
       <Footer />
     </div>
