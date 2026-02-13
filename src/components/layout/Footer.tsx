@@ -52,9 +52,9 @@ const Footer = () => (
         </div>
       </div>
 
-      <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="border-t border-border mt-8 pt-8 flex flex-col items-center gap-4 md:flex-row md:justify-between">
         <p className="text-xs text-muted-foreground">© 2026 DataVault. All rights reserved.</p>
-        <div className="flex items-center gap-4 text-xs text-muted-foreground">
+        <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 text-xs text-muted-foreground">
           <span>🔒 SSL Secured</span>
           <span>💳 Visa / Mastercard / PayPal</span>
           <span>🚚 Fast Worldwide Shipping</span>
