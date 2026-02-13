@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ShoppingCart, Truck, Shield, Clock, ChevronRight, Loader2, Package, Check } from "lucide-react";
+import RelatedProducts from "@/components/RelatedProducts";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { useShopifyProduct } from "@/hooks/useShopifyProducts";
@@ -269,6 +270,12 @@ const ProductDetail = () => {
             </div>
           </div>
         </div>
+
+        {/* Related Products */}
+        <RelatedProducts
+          currentHandle={product.handle}
+          currentProductType={product.options.find(o => o.name !== "Title")?.name}
+        />
       </main>
       <Footer />
     </div>
