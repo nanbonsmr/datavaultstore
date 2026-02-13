@@ -361,9 +361,8 @@ const ProductDetail = () => {
           </div>
         )}
 
-        {/* Reviews */}
-        <ProductReviews />
-
+        {/* Reviews - hidden for now */}
+        {/* <ProductReviews /> */}
         {/* Related Products */}
         <RelatedProducts
           currentHandle={product.handle}
