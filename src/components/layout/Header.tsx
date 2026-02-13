@@ -18,14 +18,14 @@ const Header = () => {
   const wishlistCount = useWishlistStore((s) => s.handles.length);
 
   return (
-  <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
-    <div className="bg-primary/10 text-center py-1.5 text-xs font-medium text-primary">
+  <header className="sticky top-0 z-50 border-b border-border/50 bg-background/70 backdrop-blur-2xl">
+    <div className="bg-gradient-to-r from-primary/10 via-accent/5 to-primary/10 text-center py-1.5 text-xs font-medium text-primary">
       <Zap className="inline h-3 w-3 mr-1" />
       Free Shipping on Orders Over $50 — Limited Time Offer
     </div>
     <div className="container mx-auto flex h-16 items-center justify-between px-4">
       <Link to="/" className="text-xl font-bold font-heading text-foreground tracking-tight">
-        Data<span className="text-primary">Vault</span>
+        Data<span className="gradient-text">Vault</span>
       </Link>
 
       <nav className="hidden md:flex items-center gap-8">
