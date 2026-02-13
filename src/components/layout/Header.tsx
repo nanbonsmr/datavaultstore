@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
-import { Search, Menu, Zap } from "lucide-react";
+import { Search, Menu, Zap, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { CartDrawer } from "@/components/CartDrawer";
+import { useWishlistStore } from "@/stores/wishlistStore";
+import { Badge } from "@/components/ui/badge";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -12,7 +14,10 @@ const navLinks = [
   { label: "FAQ", path: "/faq" },
 ];
 
-const Header = () => (
+const Header = () => {
+  const wishlistCount = useWishlistStore((s) => s.handles.length);
+
+  return (
   <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
     <div className="bg-primary/10 text-center py-1.5 text-xs font-medium text-primary">
       <Zap className="inline h-3 w-3 mr-1" />
@@ -39,6 +44,16 @@ const Header = () => (
         <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
           <Search className="h-5 w-5" />
         </Button>
+        <Link to="/wishlist">
+          <Button variant="ghost" size="icon" className="relative text-muted-foreground hover:text-foreground">
+            <Heart className="h-5 w-5" />
+            {wishlistCount > 0 && (
+              <Badge className="absolute -top-1 -right-1 h-4 w-4 rounded-full p-0 flex items-center justify-center text-[10px] bg-accent text-accent-foreground">
+                {wishlistCount}
+              </Badge>
+            )}
+          </Button>
+        </Link>
         <CartDrawer />
 
         <Sheet>
@@ -64,6 +79,7 @@ const Header = () => (
       </div>
     </div>
   </header>
-);
+  );
+};
 
 export default Header;
