@@ -7,6 +7,7 @@ import {
 import RelatedProducts from "@/components/RelatedProducts";
 import RecentlyViewed from "@/components/RecentlyViewed";
 import SEOHead from "@/components/SEOHead";
+import ShareButton from "@/components/ShareButton";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { useShopifyProduct } from "@/hooks/useShopifyProducts";
@@ -230,24 +231,27 @@ const ProductDetail = () => {
             <div className="lg:sticky lg:top-24 space-y-6">
               {/* Title + Price + Wishlist */}
               <div>
-                <div className="flex items-start justify-between gap-3">
+              <div className="flex items-start justify-between gap-3">
                   <h1 className="text-xl md:text-2xl lg:text-3xl font-heading font-bold text-foreground leading-tight">
                     {product.title}
                   </h1>
-                  <button
-                    onClick={() => {
-                      toggleWishlist(product.handle);
-                      toast.success(isWishlisted ? 'Removed from wishlist' : 'Added to wishlist');
-                    }}
-                    className={`flex-shrink-0 h-10 w-10 rounded-full border flex items-center justify-center transition-all ${
-                      isWishlisted
-                        ? 'border-red-500/30 bg-red-500/10 text-red-500'
-                        : 'border-border bg-card text-muted-foreground hover:text-red-500 hover:border-red-500/30'
-                    }`}
-                    aria-label="Toggle wishlist"
-                  >
-                    <Heart className={`h-5 w-5 ${isWishlisted ? 'fill-current' : ''}`} />
-                  </button>
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <ShareButton title={product.title} text={shortDescription} />
+                    <button
+                      onClick={() => {
+                        toggleWishlist(product.handle);
+                        toast.success(isWishlisted ? 'Removed from wishlist' : 'Added to wishlist');
+                      }}
+                      className={`h-10 w-10 rounded-full border flex items-center justify-center transition-all ${
+                        isWishlisted
+                          ? 'border-red-500/30 bg-red-500/10 text-red-500'
+                          : 'border-border bg-card text-muted-foreground hover:text-red-500 hover:border-red-500/30'
+                      }`}
+                      aria-label="Toggle wishlist"
+                    >
+                      <Heart className={`h-5 w-5 ${isWishlisted ? 'fill-current' : ''}`} />
+                    </button>
+                  </div>
                 </div>
                 <div className="flex items-center gap-3 mt-4">
                   <span className="text-4xl font-heading font-bold gradient-text">
