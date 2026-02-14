@@ -70,30 +70,30 @@ const HeroSection = () => (
         </div>
 
         {/* Hero images - 3 overlapping cards */}
-        <div className="relative animate-fade-up hidden lg:block h-[500px]" style={{ animationDelay: '0.3s' }}>
+        <div className="relative animate-fade-up h-[280px] sm:h-[350px] lg:h-[500px] mt-12 lg:mt-0" style={{ animationDelay: '0.3s' }}>
           {/* Back image - Hub */}
-          <div className="absolute top-0 right-0 w-72 h-72 rounded-2xl overflow-hidden border border-border/30 shadow-2xl shadow-accent/20 rotate-6 transition-transform duration-500 hover:rotate-3 hover:scale-105">
+          <div className="absolute top-0 right-0 w-36 h-36 sm:w-52 sm:h-52 lg:w-72 lg:h-72 rounded-xl lg:rounded-2xl overflow-hidden border border-border/30 shadow-2xl shadow-accent/20 rotate-6 transition-transform duration-500 hover:rotate-3 hover:scale-105">
             <img src={heroHub} alt="USB-C hub adapter" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
-            <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10" />
+            <div className="absolute inset-0 rounded-xl lg:rounded-2xl ring-1 ring-inset ring-white/10" />
           </div>
 
           {/* Middle image - SSD */}
-          <div className="absolute top-16 left-8 w-72 h-72 rounded-2xl overflow-hidden border border-border/30 shadow-2xl shadow-purple-500/20 -rotate-3 transition-transform duration-500 hover:-rotate-1 hover:scale-105 z-10">
+          <div className="absolute top-8 sm:top-12 lg:top-16 left-2 sm:left-4 lg:left-8 w-36 h-36 sm:w-52 sm:h-52 lg:w-72 lg:h-72 rounded-xl lg:rounded-2xl overflow-hidden border border-border/30 shadow-2xl shadow-purple-500/20 -rotate-3 transition-transform duration-500 hover:-rotate-1 hover:scale-105 z-10">
             <img src={heroSsd} alt="Portable external SSD" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
-            <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10" />
+            <div className="absolute inset-0 rounded-xl lg:rounded-2xl ring-1 ring-inset ring-white/10" />
           </div>
 
           {/* Front image - USB */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-80 h-80 rounded-2xl overflow-hidden border border-primary/30 shadow-2xl shadow-primary/20 rotate-2 transition-transform duration-500 hover:rotate-0 hover:scale-105 z-20">
+          <div className="absolute bottom-0 sm:bottom-2 lg:bottom-4 left-1/2 -translate-x-1/2 w-40 h-40 sm:w-56 sm:h-56 lg:w-80 lg:h-80 rounded-xl lg:rounded-2xl overflow-hidden border border-primary/30 shadow-2xl shadow-primary/20 rotate-2 transition-transform duration-500 hover:rotate-0 hover:scale-105 z-20">
             <img src={heroUsb} alt="Premium USB flash drive" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent" />
-            <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/15" />
+            <div className="absolute inset-0 rounded-xl lg:rounded-2xl ring-1 ring-inset ring-white/15" />
           </div>
 
           {/* Decorative glow behind stack */}
-          <div className="absolute -inset-8 bg-gradient-to-br from-primary/20 via-purple-500/10 to-accent/20 rounded-3xl blur-3xl -z-10" />
+          <div className="absolute -inset-4 lg:-inset-8 bg-gradient-to-br from-primary/20 via-purple-500/10 to-accent/20 rounded-3xl blur-3xl -z-10" />
         </div>
       </div>
     </div>
