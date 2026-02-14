@@ -44,21 +44,6 @@ const ShareButton = ({ title, text, url, className }: ShareButtonProps) => {
     { label: "Email", url: `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`${text || title}\n\n${shareUrl}`)}` },
   ];
 
-  // Use native share on mobile if available
-  if (navigator.share) {
-    return (
-      <Button
-        variant="outline"
-        size="icon"
-        onClick={handleNativeShare}
-        className={`rounded-full border-border bg-card text-muted-foreground hover:text-foreground ${className || ""}`}
-        aria-label="Share"
-      >
-        <Share2 className="h-4 w-4" />
-      </Button>
-    );
-  }
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -72,6 +57,12 @@ const ShareButton = ({ title, text, url, className }: ShareButtonProps) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">
+        {typeof navigator !== "undefined" && navigator.share && (
+          <DropdownMenuItem onClick={handleNativeShare}>
+            <Share2 className="h-4 w-4 mr-2" />
+            Share…
+          </DropdownMenuItem>
+        )}
         {socialLinks.map((link) => (
           <DropdownMenuItem key={link.label} asChild>
             <a href={link.url} target="_blank" rel="noopener noreferrer">
