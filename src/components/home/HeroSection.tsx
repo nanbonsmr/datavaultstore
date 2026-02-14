@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Shield, Truck, Zap, Star } from "lucide-react";
-import heroImage from "@/assets/hero-storage.jpg";
+import heroUsb from "@/assets/hero-usb1.png";
+import heroSsd from "@/assets/hero-ssd2.png";
+import heroHub from "@/assets/hero-hub3.png";
 
 const HeroSection = () => (
   <section className="relative overflow-hidden min-h-[85vh] flex items-center">
@@ -67,19 +69,31 @@ const HeroSection = () => (
           </div>
         </div>
 
-        {/* Hero image */}
-        <div className="relative animate-fade-up hidden lg:block" style={{ animationDelay: '0.3s' }}>
-          <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-2xl shadow-primary/10">
-            <img
-              src={heroImage}
-              alt="Premium USB storage devices with neon blue and purple lighting"
-              className="w-full h-auto object-cover rounded-2xl"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+        {/* Hero images - 3 overlapping cards */}
+        <div className="relative animate-fade-up hidden lg:block h-[500px]" style={{ animationDelay: '0.3s' }}>
+          {/* Back image - Hub */}
+          <div className="absolute top-0 right-0 w-72 h-72 rounded-2xl overflow-hidden border border-border/30 shadow-2xl shadow-accent/20 rotate-6 transition-transform duration-500 hover:rotate-3 hover:scale-105">
+            <img src={heroHub} alt="USB-C hub adapter" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
             <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10" />
           </div>
-          {/* Decorative glow behind image */}
-          <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 via-transparent to-accent/20 rounded-3xl blur-2xl -z-10" />
+
+          {/* Middle image - SSD */}
+          <div className="absolute top-16 left-8 w-72 h-72 rounded-2xl overflow-hidden border border-border/30 shadow-2xl shadow-purple-500/20 -rotate-3 transition-transform duration-500 hover:-rotate-1 hover:scale-105 z-10">
+            <img src={heroSsd} alt="Portable external SSD" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
+            <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10" />
+          </div>
+
+          {/* Front image - USB */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-80 h-80 rounded-2xl overflow-hidden border border-primary/30 shadow-2xl shadow-primary/20 rotate-2 transition-transform duration-500 hover:rotate-0 hover:scale-105 z-20">
+            <img src={heroUsb} alt="Premium USB flash drive" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent" />
+            <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/15" />
+          </div>
+
+          {/* Decorative glow behind stack */}
+          <div className="absolute -inset-8 bg-gradient-to-br from-primary/20 via-purple-500/10 to-accent/20 rounded-3xl blur-3xl -z-10" />
         </div>
       </div>
     </div>
